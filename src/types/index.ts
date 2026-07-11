@@ -16,7 +16,7 @@ export interface Product {
   compareAtPrice?: number;
   variants?: Variant[];
   image: string;
-  category: "cameras" | "sensors" | "accessories" | "plan";
+  category: 'cameras' | 'sensors' | 'accessories' | 'plan';
 }
 
 export interface Step {
@@ -37,7 +37,7 @@ export interface ReviewItem {
   variantName: string;
   productName: string;
   shortName: string;
-  category: Product["category"];
+  category: Product['category'];
   quantity: number;
   price: number;
   compareAtPrice?: number;

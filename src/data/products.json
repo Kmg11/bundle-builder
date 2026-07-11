@@ -5,7 +5,13 @@
       "number": 1,
       "title": "Choose your cameras",
       "icon": "camera",
-      "productIds": ["wyze-cam-v4", "wyze-cam-pan-v3", "wyze-cam-floodlight-v2", "wyze-duo-cam-doorbell", "wyze-battery-cam-pro"]
+      "productIds": [
+        "wyze-cam-v4",
+        "wyze-cam-pan-v3",
+        "wyze-cam-floodlight-v2",
+        "wyze-duo-cam-doorbell",
+        "wyze-battery-cam-pro"
+      ]
     },
     {
       "id": "plan",
