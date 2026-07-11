@@ -1,0 +1,153 @@
+{
+  "steps": [
+    {
+      "id": "cameras",
+      "number": 1,
+      "title": "Choose your cameras",
+      "icon": "camera",
+      "productIds": ["wyze-cam-v4", "wyze-cam-pan-v3", "wyze-cam-floodlight-v2", "wyze-duo-cam-doorbell", "wyze-battery-cam-pro"]
+    },
+    {
+      "id": "plan",
+      "number": 2,
+      "title": "Choose your plan",
+      "icon": "plan",
+      "productIds": ["cam-unlimited"]
+    },
+    {
+      "id": "sensors",
+      "number": 3,
+      "title": "Choose your sensors",
+      "icon": "sensor",
+      "productIds": ["wyze-sense-motion-sensor", "wyze-sense-hub"]
+    },
+    {
+      "id": "extra",
+      "number": 4,
+      "title": "Add extra protection",
+      "icon": "shield",
+      "productIds": ["wyze-microsd-card"]
+    }
+  ],
+  "products": [
+    {
+      "id": "wyze-cam-v4",
+      "stepId": "cameras",
+      "name": "Wyze Cam v4",
+      "shortName": "Wyze Cam v4",
+      "description": "The clearest Wyze Cam ever made. Learn More",
+      "learnMoreUrl": "#",
+      "badge": "Save 22%",
+      "price": 27.98,
+      "compareAtPrice": 35.98,
+      "image": "/images/wyze-cam-v4.png",
+      "variants": [
+        { "id": "white", "name": "White", "image": "/images/wyze-cam-v4-white.png" },
+        { "id": "grey", "name": "Grey", "image": "/images/wyze-cam-v4-grey.png" },
+        { "id": "black", "name": "Black", "image": "/images/wyze-cam-v4-black.png" }
+      ],
+      "category": "cameras"
+    },
+    {
+      "id": "wyze-cam-pan-v3",
+      "stepId": "cameras",
+      "name": "Wyze Cam Pan v3",
+      "shortName": "Wyze Cam Pan v3",
+      "description": "360° pan and 180° tilt security camera. Learn More",
+      "learnMoreUrl": "#",
+      "badge": "Save 12%",
+      "price": 34.98,
+      "compareAtPrice": 39.98,
+      "image": "/images/wyze-cam-pan-v3.png",
+      "variants": [
+        { "id": "white", "name": "White", "image": "/images/wyze-cam-pan-v3-white.png" },
+        { "id": "black", "name": "Black", "image": "/images/wyze-cam-pan-v3-black.png" }
+      ],
+      "category": "cameras"
+    },
+    {
+      "id": "wyze-cam-floodlight-v2",
+      "stepId": "cameras",
+      "name": "Wyze Cam Floodlight v2",
+      "shortName": "Wyze Floodlight v2",
+      "description": "2K floodlight camera with a 160° wide-angle view. Learn More",
+      "learnMoreUrl": "#",
+      "badge": "Save 22%",
+      "price": 69.98,
+      "compareAtPrice": 89.98,
+      "image": "/images/wyze-cam-floodlight-v2.png",
+      "variants": [
+        { "id": "white", "name": "White", "image": "/images/wyze-cam-floodlight-v2-white.png" },
+        { "id": "grey", "name": "Grey", "image": "/images/wyze-cam-floodlight-v2-grey.png" }
+      ],
+      "category": "cameras"
+    },
+    {
+      "id": "wyze-duo-cam-doorbell",
+      "stepId": "cameras",
+      "name": "Wyze Duo Cam Doorbell",
+      "shortName": "Duo Cam Doorbell",
+      "description": "Dual-camera video doorbell with 2K clarity. Learn More",
+      "learnMoreUrl": "#",
+      "badge": "Save 20%",
+      "price": 47.98,
+      "compareAtPrice": 59.98,
+      "image": "/images/wyze-duo-cam-doorbell.png",
+      "category": "cameras"
+    },
+    {
+      "id": "wyze-battery-cam-pro",
+      "stepId": "cameras",
+      "name": "Wyze Battery Cam Pro",
+      "shortName": "Battery Cam Pro",
+      "description": "Wire-free security camera with color night vision. Learn More",
+      "learnMoreUrl": "#",
+      "badge": "Save 25%",
+      "price": 59.98,
+      "compareAtPrice": 79.98,
+      "image": "/images/wyze-battery-cam-pro.png",
+      "category": "cameras"
+    },
+    {
+      "id": "cam-unlimited",
+      "stepId": "plan",
+      "name": "Cam Unlimited",
+      "shortName": "Cam Unlimited",
+      "description": "Unlimited cloud storage for all your Wyze cameras.",
+      "price": 9.99,
+      "compareAtPrice": 12.99,
+      "image": "/images/cam-unlimited-logo.svg",
+      "category": "plan"
+    },
+    {
+      "id": "wyze-sense-motion-sensor",
+      "stepId": "sensors",
+      "name": "Wyze Sense Motion Sensor",
+      "shortName": "Motion Sensor",
+      "description": "Instant alerts when motion is detected.",
+      "price": 59.98,
+      "image": "/images/wyze-sense-motion-sensor.png",
+      "category": "sensors"
+    },
+    {
+      "id": "wyze-sense-hub",
+      "stepId": "sensors",
+      "name": "Wyze Sense Hub (Required)",
+      "shortName": "Sense Hub",
+      "description": "The brain of your Wyze Sense system.",
+      "price": 29.92,
+      "image": "/images/wyze-sense-hub.png",
+      "category": "sensors"
+    },
+    {
+      "id": "wyze-microsd-card",
+      "stepId": "extra",
+      "name": "Wyze MicroSD Card (256GB)",
+      "shortName": "MicroSD Card",
+      "description": "256GB microSD card for local video storage.",
+      "price": 41.96,
+      "image": "/images/wyze-microsd-card.png",
+      "category": "accessories"
+    }
+  ]
+}
