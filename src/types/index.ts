@@ -1,10 +1,10 @@
-export interface Variant {
+export type Variant = {
   id: string;
   name: string;
   image: string;
-}
+};
 
-export interface Product {
+export type Product = {
   id: string;
   stepId: string;
   name: string;
@@ -17,21 +17,21 @@ export interface Product {
   variants?: Variant[];
   image: string;
   category: 'cameras' | 'sensors' | 'accessories' | 'plan';
-}
+};
 
-export interface Step {
+export type Step = {
   id: string;
   number: number;
   title: string;
   icon: string;
   productIds: string[];
-}
+};
 
 export type VariantQuantities = Record<string, number>;
 
 export type Selections = Record<string, VariantQuantities>;
 
-export interface ReviewItem {
+export type ReviewItem = {
   productId: string;
   variantId: string;
   variantName: string;
@@ -42,9 +42,9 @@ export interface ReviewItem {
   price: number;
   compareAtPrice?: number;
   image: string;
-}
+};
 
-export interface BundleData {
+export type BundleData = {
   steps: Step[];
   products: Product[];
-}
+};

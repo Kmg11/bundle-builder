@@ -28,10 +28,10 @@ type Action =
   | { type: 'SET_QUANTITY'; productId: string; variantId: string; quantity: number }
   | { type: 'SET_ACTIVE_VARIANT'; productId: string; variantId: string };
 
-interface BuilderState {
+type BuilderState = {
   selections: Selections;
   activeVariants: Record<string, string>;
-}
+};
 
 function getInitialActiveVariants(selections: Selections): Record<string, string> {
   const active: Record<string, string> = {};
