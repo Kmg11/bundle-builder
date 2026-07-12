@@ -141,7 +141,8 @@
       "name": "Wyze Sense Hub (Required)",
       "shortName": "Sense Hub",
       "description": "The brain of your Wyze Sense system.",
-      "price": 29.92,
+      "price": 0,
+      "compareAtPrice": 29.92,
       "image": "/images/wyze-sense-hub.png",
       "category": "sensors"
     },
