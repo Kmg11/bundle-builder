@@ -1,89 +1,136 @@
-import * as z from "zod"
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
+import { useState } from 'react';
+import { useBuilder } from './hooks/useBuilder';
+import { AccordionStep } from './components/AccordionStep';
+import { ReviewPanel } from './components/ReviewPanel';
 
-const schema = z.object({
-  name: z.string().min(1, "Name is required"),
-  email: z.string().min(1, "Email is required").email("Invalid email address"),
-  age: z.number().min(18, "Must be at least 18"),
-})
+// TODO: Remove style fadeIn block in the end of the page
+// TODO: Split accordion login into separate component
+// TODO: Split toast into a separate component
+// TODO: Center next button
+// TODO: Review page padding and spacing
+// TODO: Review review panel design
+// TODO: Change default products to match the design
+// TODO: Review the images to match the design
+// TODO: match tablet responsive
+// TODO: Fix products listing responsive when products have wide variants
+// TODO: Check all warnings in eslint
+// TODO: Check README.md file
+// TODO: Replace all arbitrary numbers with Tailwind spacing classes
+// TODO: Handle /mo in review and make plan unlimited word bold
 
-type FormData = z.infer<typeof schema>
-
-function App() {
+const App = () => {
   const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FormData>({
-    resolver: zodResolver(schema),
-  })
+    bundleData,
+    selections,
+    reviewItems,
+    subtotal,
+    totalCompareAt,
+    totalItems,
+    savings,
+    setQuantity,
+    setActiveVariant,
+    saveSystem,
+    getStepSelectedCount,
+    getActiveVariant,
+    getStepNextLabel,
+  } = useBuilder();
 
-  const onSubmit = (data: FormData) => {
-    console.log(data)
-  }
+  const [openStep, setOpenStep] = useState(0);
+  const [toast, setToast] = useState<string | null>(null);
+
+  const handleNext = () => {
+    if (openStep < bundleData.steps.length - 1) {
+      setOpenStep(openStep + 1);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
+  const handleCheckout = () => {
+    alert('Checkout coming soon! Your system has been configured.');
+  };
+
+  const handleSave = () => {
+    saveSystem();
+    setToast('Your system has been saved!');
+    setTimeout(() => setToast(null), 3000);
+  };
+
+  const activeVariants = Object.fromEntries(
+    bundleData.products
+      .filter((p) => p.variants && p.variants.length > 0)
+      .map((p) => [p.id, getActiveVariant(p.id)]),
+  );
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="bg-white p-8 rounded-2xl shadow-lg w-full max-w-md">
-        <h1 className="text-2xl font-bold text-center text-gray-900 mb-6">
-          Zod + React Hook Form
-        </h1>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          <div>
-            <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
-              Name
-            </label>
-            <input
-              id="name"
-              {...register("name")}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-            {errors.name && (
-              <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>
-            )}
-          </div>
+    <div className="min-h-screen bg-white">
+      <div className="max-w-300 mx-auto px-6 py-12 flex flex-col xl:flex-row gap-6 items-start">
+        {/* Builder column */}
+        <div className="flex-1 min-w-0 flex flex-col" style={{ gap: 13 }}>
+          {bundleData.steps.map((step, index) => {
+            const stepProducts = bundleData.products.filter((p) => step.productIds.includes(p.id));
+            return (
+              <AccordionStep
+                key={step.id}
+                step={step}
+                products={stepProducts}
+                isOpen={openStep === index}
+                selectedCount={getStepSelectedCount(step)}
+                onToggle={() => setOpenStep(openStep === index ? -1 : index)}
+                onNext={handleNext}
+                nextLabel={getStepNextLabel(index)}
+                selections={selections}
+                activeVariants={activeVariants}
+                onChangeQuantity={setQuantity}
+                onSelectVariant={setActiveVariant}
+              />
+            );
+          })}
+        </div>
 
-          <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-              Email
-            </label>
-            <input
-              id="email"
-              type="email"
-              {...register("email")}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-            {errors.email && (
-              <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
-            )}
-          </div>
-
-          <div>
-            <label htmlFor="age" className="block text-sm font-medium text-gray-700 mb-1">
-              Age
-            </label>
-            <input
-              id="age"
-              type="number"
-              {...register("age", { valueAsNumber: true })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-            {errors.age && (
-              <p className="text-red-500 text-sm mt-1">{errors.age.message}</p>
-            )}
-          </div>
-
-          <button
-            type="submit"
-            className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors"
-          >
-            Submit
-          </button>
-        </form>
+        {/* Review panel */}
+        <div className="w-[399px] shrink-0">
+          <ReviewPanel
+            items={reviewItems}
+            subtotal={subtotal}
+            totalCompareAt={totalCompareAt}
+            totalItems={totalItems}
+            savings={savings}
+            onChangeQuantity={setQuantity}
+            onSave={handleSave}
+            onCheckout={handleCheckout}
+          />
+        </div>
       </div>
-    </div>
-  )
-}
 
-export default App
+      {/* Toast */}
+      {toast && (
+        <div
+          className="fixed top-6 right-6 z-50 px-5 py-3 rounded-xl shadow-lg flex items-center gap-2 text-white text-sm font-medium"
+          style={{ backgroundColor: '#0AA288', animation: 'fadeIn 0.2s ease-out' }}
+        >
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+          >
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+            <polyline points="22 4 12 14.01 9 11.01" />
+          </svg>
+          {toast}
+        </div>
+      )}
+
+      <style>{`
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(-8px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+      `}</style>
+    </div>
+  );
+};
+
+export default App;
