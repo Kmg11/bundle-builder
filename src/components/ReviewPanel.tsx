@@ -1,4 +1,5 @@
 import type { ReviewItem } from '../types';
+import { Price } from './Price';
 import { QuantityStepper } from './QuantityStepper';
 
 type ReviewPanelProps = {
@@ -26,8 +27,6 @@ type ReviewItemRowProps = {
 };
 
 const ReviewItemRow = ({ item, onChangeQuantity }: ReviewItemRowProps) => {
-  const isFree = item.price === 0;
-
   return (
     <div className="flex items-center py-2.5 gap-3">
       <div className="w-10 h-10 rounded flex items-center justify-center flex-shrink-0 overflow-hidden bg-white">
@@ -47,16 +46,12 @@ const ReviewItemRow = ({ item, onChangeQuantity }: ReviewItemRowProps) => {
         variant="review"
       />
 
-      <div className="flex flex-col items-end">
-        {item.compareAtPrice && (
-          <span className="text-sm text-gray line-through">
-            ${((item.compareAtPrice || item.price) * item.quantity).toFixed(2)}
-          </span>
-        )}
-
-        <span className="text-sm font-semibold text-primary text-right">
-          {isFree ? 'FREE' : `$${(item.price * item.quantity).toFixed(2)}`}
-        </span>
+      <div className="w-16">
+        <Price
+          price={item.price * item.quantity}
+          compareAtPrice={item.compareAtPrice ? item.compareAtPrice * item.quantity : undefined}
+          variant="review"
+        />
       </div>
     </div>
   );
@@ -123,10 +118,8 @@ export const ReviewPanel = ({
               <img src="/images/icon-shipping.svg" alt="" width={24} height={24} />
               <span className="text-sm font-medium text-dark">Fast Shipping</span>
             </div>
-            <div className="flex items-center gap-2">
-              <span className="text-sm text-gray line-through">$5.99</span>
-              <span className="text-sm font-bold text-primary">FREE</span>
-            </div>
+
+            <Price price={0} compareAtPrice={5.99} variant="review" />
           </div>
 
           {/* Satisfaction badge */}
@@ -146,12 +139,7 @@ export const ReviewPanel = ({
                 </span>
               </div>
 
-              <div className="flex items-baseline gap-2">
-                <span className="text-lg text-gray line-through">${totalCompareAt.toFixed(2)}</span>
-                <span className="text-2xl font-bold text-primary leading-8">
-                  ${subtotal.toFixed(2)}
-                </span>
-              </div>
+              <Price price={subtotal} compareAtPrice={totalCompareAt} variant="summary" />
             </div>
           </div>
 

@@ -1,4 +1,5 @@
 import type { Product } from '../types';
+import { Price } from './Price';
 import { QuantityStepper } from './QuantityStepper';
 
 type ProductCardProps = {
@@ -128,32 +129,22 @@ export const ProductCard = ({
         </div>
 
         {/* Bottom row: stepper + pricing */}
-        <div className="flex items-stretch" style={{ gap: 10 }}>
+        <div className="flex items-center justify-between" style={{ gap: 10 }}>
           <QuantityStepper
             quantity={stepperQuantity}
             onChange={(qty) => onChangeQuantity(currentVariantId, qty)}
           />
 
           {/* Price column - fills remaining width */}
-          <div className="flex-1 flex flex-col justify-center items-end" style={{ gap: 3 }}>
-            {product.compareAtPrice && (
-              <span
-                className="text-[16px] text-[#D8392B]"
-                style={{
-                  letterSpacing: '0.0375em',
-                  textDecoration: 'line-through',
-                }}
-              >
-                ${product.compareAtPrice.toFixed(2)}
-              </span>
-            )}
-            <span className="text-[16px] text-[#575757]" style={{ letterSpacing: '0.0375em' }}>
-              ${product.price.toFixed(2)}
-              {product.stepId === 'plan' && (
-                <span className="text-[10px] font-normal text-[#6F7882]">/mo</span>
-              )}
-            </span>
-          </div>
+          <Price
+            price={product.price}
+            compareAtPrice={product.compareAtPrice}
+            suffix={
+              product.stepId === 'plan' && (
+                <span className="text-[10px] font-normal text-price">/mo</span>
+              )
+            }
+          />
         </div>
       </div>
     </div>
