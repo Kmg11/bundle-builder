@@ -32,14 +32,14 @@ export const ProductCard = ({
   return (
     <div
       className={`
-        relative flex p-2.5 rounded-[10px] transition-all bg-white gap-3.5
+        relative flex flex-col xl:flex-row h-full p-2.5 rounded-[10px] transition-all bg-white gap-3.5
       `}
       style={{
         border: isSelected ? '2px solid rgba(78, 47, 210, 0.7)' : 'none',
       }}
     >
       {/* Image area with overlapping badge */}
-      <div className="relative shrink-0" style={{ width: 101, height: 137 }}>
+      <div className="relative shrink-0 w-full h-48 xl:w-24 xl:h-full">
         {product.badge && (
           <div className="absolute top-0 left-0 z-10 px-[6px] py-[2px] rounded-[10px] text-white text-[12px] font-semibold tracking-wide bg-primary">
             {product.badge}
@@ -84,28 +84,24 @@ export const ProductCard = ({
 
           {/* Color variant chips */}
           {hasVariants && (
-            <div className="flex items-end" style={{ gap: 6 }}>
+            <div className="flex gap-1.5">
               {product.variants!.map((v) => {
                 const isActive = v.id === activeVariant;
+
                 return (
                   <button
                     key={v.id}
                     type="button"
                     onClick={() => onSelectVariant(v.id)}
-                    className="flex items-center justify-center cursor-pointer"
-                    style={{
-                      width: isActive ? 65 : 63,
-                      height: 26,
-                      padding: isActive ? '1px 3px' : '1px 5px',
-                      borderRadius: 2,
-                      border: isActive ? '0.5px solid #0AA288' : '0.5px solid #CCCCCC',
-                      backgroundColor: isActive ? 'rgba(29, 240, 187, 0.04)' : '#FFFFFF',
-                    }}
+                    className={`
+                      flex items-center justify-center cursor-pointer py-0.5 px-1 rounded-xs border-[0.5px] bg-white
+                      ${isActive ? 'border-success bg-primary-light' : 'border-chip-border'}
+                    `}
                     aria-label={`Select ${v.name}`}
                   >
                     <div className="flex items-center justify-center gap-1">
-                      <div className="rounded-[5px] overflow-hidden shrink-0">
-                        <img src={v.image} alt={v.name} className="w-7 h-7 object-contain" />
+                      <div className="w-7 h-7 overflow-hidden shrink-0">
+                        <img src={v.image} alt={v.name} className="w-full h-full object-contain" />
                       </div>
 
                       <span className="text-[10px] text-dark uppercase leading-none whitespace-nowrap">

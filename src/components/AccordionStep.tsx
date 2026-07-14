@@ -86,7 +86,7 @@ export const AccordionStep = ({
       {isOpen && (
         <div className="flex flex-col" style={{ padding: '15px 15px 20px', gap: 15 }}>
           {/* Product cards - flex layout */}
-          <div className="flex flex-wrap justify-center gap-[15px]">
+          <div className="flex flex-wrap justify-center items-stretch gap-4">
             {products.map((product) => {
               const productVariants = selections[product.id] || {};
               const activeVariant =
@@ -94,7 +94,7 @@ export const AccordionStep = ({
               const hasQty = Object.values(productVariants).some((q) => q > 0);
 
               return (
-                <div key={product.id} className="w-full sm:w-[calc(50%-7.5px)]">
+                <div key={product.id} className="flex-1 min-w-[280px]">
                   <ProductCard
                     product={product}
                     activeVariant={activeVariant}
