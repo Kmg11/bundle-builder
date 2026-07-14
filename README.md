@@ -1,77 +1,60 @@
-# React + TypeScript + Vite
+# Security System Bundle Builder
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A multi-step bundle builder for configuring a home security system, built with React, TypeScript, and Tailwind CSS.
 
-Currently, two official plugins are available:
+## Run Instructions
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+```bash
+# Install dependencies
+pnpm install
 
-## React Compiler
+# Start dev server
+pnpm dev
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+# Build for production
+pnpm build
 
-Note: This will impact Vite dev & build performances.
+# Preview production build
+pnpm preview
 
-## Expanding the ESLint configuration
+# Lint
+pnpm lint
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+# Format
+pnpm format
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+# TypeScript type check
+pnpm ts:check
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Tech Stack
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- **React 19** with TypeScript
+- **Vite 8** for dev server and bundling
+- **Tailwind CSS 4** for styling
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Project Structure
 
 ```
+src/
+├── data/products.json       # Product data (JSON-driven, no hardcoded markup)
+├── types/index.ts           # TypeScript interfaces
+├── hooks/useBuilder.ts      # Central state management (useReducer + localStorage)
+├── components/
+│   ├── AccordionStep.tsx     # Single accordion step with header and product list
+│   ├── ProductCard.tsx       # Product card with variant selector, stepper, pricing
+│   ├── QuantityStepper.tsx   # Reusable +/- stepper component (80px card / 72px review)
+│   ├── ReviewPanel.tsx       # Right-side summary panel
+│		└── Price.tsx						 	# Price display component (used in product card and review panel)
+└── App.tsx                   # Main layout orchestrator
+public/images/                # Figma-exported icons and product images
+```
+
+## Design Decisions & Notes
+
+- **Data-driven**: All product data (names, prices, descriptions, badges, variants, images) is defined in `src/data/products.json`. Components render from data with no per-product hardcoded markup.
+- **Spacing & sizing**: Arbitrary pixel values from Figma (e.g. `15px`, `13px`, `41px`) are rounded to the nearest Tailwind standard class (4px base scale). Differences are ≤2px and visually imperceptible. This keeps the codebase consistent and maintainable. Exception: `text-[22px]` values are kept as arbitrary since no close standard exists.
+
+## Known Limitations
+
+- Font families use system fonts (Segoe UI) as a fallback for Gilroy, which is not freely available.
