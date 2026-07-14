@@ -87,19 +87,16 @@ const App = () => {
           })}
         </div>
 
-        {/* Review panel */}
-        <div className="w-[399px] shrink-0">
-          <ReviewPanel
-            items={reviewItems}
-            subtotal={subtotal}
-            totalCompareAt={totalCompareAt}
-            totalItems={totalItems}
-            savings={savings}
-            onChangeQuantity={setQuantity}
-            onSave={handleSave}
-            onCheckout={handleCheckout}
-          />
-        </div>
+        <ReviewPanel
+          items={reviewItems}
+          subtotal={subtotal}
+          totalCompareAt={totalCompareAt}
+          totalItems={totalItems}
+          savings={savings}
+          onChangeQuantity={setQuantity}
+          onSave={handleSave}
+          onCheckout={handleCheckout}
+        />
       </div>
 
       {/* Toast */}

@@ -77,42 +77,43 @@ export const ReviewPanel = ({
     .filter((g) => g.items.length > 0);
 
   return (
-    <aside className="w-full rounded-xl bg-surface">
-      <header className="px-4 pt-4">
-        <h3 className="text-xs font-medium tracking-[0.16em] uppercase text-muted mb-6">Review</h3>
+    <aside className="rounded-xl bg-surface w-full xl:w-[400px] shrink-0 flex flex-col md:flex-row xl:flex-col">
+      <div className='flex-1'>
+        <header className="px-4 pt-4">
+          <h3 className="hidden xl:block text-xs font-medium tracking-[0.16em] uppercase text-muted mb-6">
+            Review
+          </h3>
 
-        <div className="px-1">
-          <h2 className="text-[22px] font-semibold text-dark leading-tight tracking-wide">
-            Your security system
-          </h2>
+          <div className="px-1">
+            <h2 className="text-[22px] font-semibold text-dark leading-tight tracking-wide">
+              Your security system
+            </h2>
 
-          <p className="text-sm text-dark/75 mt-1.5 leading-snug">
-            Review your personalized protection system designed to keep what matters most safe.
-          </p>
-        </div>
-      </header>
-
-      <div className="px-5 pb-4 space-y-4 mt-2.5">
-        {grouped.map((group) => (
-          <div key={group.category}>
-            <div className="text-xs font-normal tracking-[0.03em] uppercase text-category pt-4 pb-2 border-t border-divider">
-              {group.label}
-            </div>
-
-            <div className="divide-y divide-border">
-              {group.items.map((item) => (
-                <ReviewItemRow
-                  key={`${item.productId}-${item.variantId}`}
-                  item={item}
-                  onChangeQuantity={onChangeQuantity}
-                />
-              ))}
-            </div>
+            <p className="text-sm text-dark/75 mt-1.5 leading-snug">
+              Review your personalized protection system designed to keep what matters most safe.
+            </p>
           </div>
-        ))}
+        </header>
 
-        {/* Shipping row + satisfaction badge + checkout */}
-        <div className="pt-4 border-t border-divider">
+        <div className="px-5 space-y-4 mt-2.5">
+          {grouped.map((group) => (
+            <div key={group.category}>
+              <div className="text-xs font-normal tracking-[0.03em] uppercase text-category pt-4 pb-2 border-t border-divider">
+                {group.label}
+              </div>
+
+              <div className="divide-y divide-border">
+                {group.items.map((item) => (
+                  <ReviewItemRow
+                    key={`${item.productId}-${item.variantId}`}
+                    item={item}
+                    onChangeQuantity={onChangeQuantity}
+                  />
+                ))}
+              </div>
+            </div>
+          ))}
+
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
               <img src="/images/icon-shipping.svg" alt="" width={24} height={24} />
@@ -121,10 +122,14 @@ export const ReviewPanel = ({
 
             <Price price={0} compareAtPrice={5.99} variant="review" />
           </div>
+        </div>
+      </div>
 
-          {/* Satisfaction badge */}
-          <div className="flex items-center justify-between gap-3 mb-4 p-3 rounded-xl">
-            <div className="w-20 h-20 rounded overflow-hidden flex-shrink-0">
+      <div className="px-5 pt-4 border-t border-divider flex-1">
+        {/* Satisfaction badge */}
+        <div className="flex flex-1 flex-row md:flex-col xl:flex-row items-center md:items-stretch xl:items-center justify-between gap-3 mb-4 rounded-xl">
+          <div className="flex items-center gap-6">
+            <div className="w-20 h-20 md:w-32 md:h-32 xl:w-20 xl:h-20 rounded overflow-hidden">
               <img
                 src="/images/satisfaction-badge.png"
                 alt="Satisfaction Guaranteed"
@@ -132,42 +137,50 @@ export const ReviewPanel = ({
               />
             </div>
 
-            <div className="flex flex-col items-end">
-              <div className="px-2 rounded-sm mb-2 bg-primary">
-                <span className="text-xs font-medium text-white">
-                  as low as ${monthlyEstimate}/mo
-                </span>
-              </div>
+            <div className="hidden md:flex xl:hidden flex-col gap-2">
+              <h4 className="text-md text-dark font-bold">30-day hassle-free returns</h4>
 
-              <Price price={subtotal} compareAtPrice={totalCompareAt} variant="summary" />
+              <p className="text-md text-dark">
+                If you're not totally in love with the product, we will refund you 100%.
+              </p>
             </div>
           </div>
 
-          {/* Savings message */}
-          {savings > 0 && (
-            <p className="text-xs font-semibold text-center text-success mb-2.5 leading-none">
-              Congrats! You're saving ${savings.toFixed(2)} on your security bundle!
-            </p>
-          )}
+          <div className="flex flex-1 flex-col md:flex-row xl:flex-col items-end md:items-center xl:items-end gap-2 justify-between">
+            <div className="px-2 rounded-sm bg-primary">
+              <span className="text-xs font-medium text-white">
+                as low as ${monthlyEstimate}/mo
+              </span>
+            </div>
 
-          {/* Checkout button */}
-          <button
-            type="button"
-            onClick={onCheckout}
-            className="w-full py-3.5 px-4 rounded text-lg font-bold text-white bg-primary flex items-center justify-center gap-2 cursor-pointer transition-opacity hover:opacity-90"
-          >
-            Checkout
-          </button>
-
-          {/* Save link */}
-          <button
-            type="button"
-            onClick={onSave}
-            className="w-full text-sm italic text-center text-muted underline cursor-pointer mt-2"
-          >
-            Save my system for later
-          </button>
+            <Price price={subtotal} compareAtPrice={totalCompareAt} variant="summary" />
+          </div>
         </div>
+
+        {/* Savings message */}
+        {savings > 0 && (
+          <p className="text-xs font-semibold text-center text-success mb-2.5 leading-none">
+            Congrats! You're saving ${savings.toFixed(2)} on your security bundle!
+          </p>
+        )}
+
+        {/* Checkout button */}
+        <button
+          type="button"
+          onClick={onCheckout}
+          className="w-full py-3.5 px-4 rounded text-lg font-bold text-white bg-primary flex items-center justify-center gap-2 cursor-pointer transition-opacity hover:opacity-90"
+        >
+          Checkout
+        </button>
+
+        {/* Save link */}
+        <button
+          type="button"
+          onClick={onSave}
+          className="w-full text-sm italic text-center text-muted underline cursor-pointer mt-2"
+        >
+          Save my system for later
+        </button>
       </div>
     </aside>
   );
