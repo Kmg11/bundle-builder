@@ -37,19 +37,14 @@ export const AccordionStep = ({
 }: AccordionStepProps) => {
   return (
     <div
-      className="w-full"
-      style={{
-        backgroundColor: isOpen ? '#EDF4FF' : '#FFFFFF',
-        borderRadius: isOpen ? 10 : 0,
-        paddingTop: isOpen ? 15 : 5,
-      }}
+      className={`
+        w-full
+        ${isOpen ? 'rounded-[10px] bg-surface' : 'bg-white'}
+      `}
     >
       {/* Step label - separate from header */}
-      <div style={{ padding: '0 15px' }}>
-        <span
-          className="text-[12px] font-medium uppercase text-[#484848] text-left block"
-          style={{ letterSpacing: '0.1333em' }}
-        >
+      <div className="px-4 pb-1.5">
+        <span className="text-[12px] font-medium uppercase text-muted text-left block">
           Step {step.number} of 4
         </span>
       </div>
@@ -58,30 +53,23 @@ export const AccordionStep = ({
       <button
         type="button"
         onClick={onToggle}
-        className="w-full flex items-center justify-between cursor-pointer"
-        style={{
-          padding: '20px 15px',
-          borderTop: '0.5px solid #1F1F1F',
-          borderBottom: 'none',
-          borderLeft: 'none',
-          borderRight: 'none',
-        }}
+        className={`
+          w-full flex items-center justify-between cursor-pointer px-4 py-5 border-r-0 border-l-0 border-dark border-t-[0.5px]
+          ${!isOpen ? 'border-b-[0.5px]' : ''}
+        `}
       >
-        <div className="flex items-center gap-[8px]">
-          <div className="w-[41px] h-[41px] rounded-[6px] flex items-center justify-center bg-[#F0F4F7] flex-shrink-0">
+        <div className="flex items-center gap-2">
+          <div className="w-10 h-10 rounded-[6px] flex items-center justify-center bg-surface-alt shrink-0">
             <img src={stepIcons[step.icon] || ''} alt="" width={26} height={26} />
           </div>
-          <h2
-            className="text-[22px] font-semibold text-[#1F1F1F] leading-[1em] text-left"
-            style={{ letterSpacing: '0.0273em' }}
-          >
+          <h2 className="text-[22px] font-semibold text-dark leading-[1em] text-left">
             {step.title}
           </h2>
         </div>
 
         <div className="flex items-center gap-[4px]">
           {isOpen && selectedCount > 0 && (
-            <span className="text-[14px] font-medium text-[#4E2FD2] mr-[8px]">
+            <span className="text-[14px] font-medium text-primary mr-2">
               {selectedCount} selected
             </span>
           )}
@@ -124,16 +112,11 @@ export const AccordionStep = ({
 
           {/* Next button */}
           {nextLabel && (
-            <div>
+            <div className="flex justify-center">
               <button
                 type="button"
                 onClick={onNext}
-                className="px-[24px] h-[39px] rounded-[7px] border text-[18px] font-semibold transition-colors cursor-pointer"
-                style={{
-                  borderColor: '#4E2FD2',
-                  color: '#4E2FD2',
-                  backgroundColor: 'transparent',
-                }}
+                className="px-6 h-10 rounded-[7px] border text-[18px] font-semibold transition-colors cursor-pointer border-primary text-primary bg-transparent"
               >
                 Next: {nextLabel}
               </button>

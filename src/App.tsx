@@ -4,19 +4,16 @@ import { AccordionStep } from './components/AccordionStep';
 import { ReviewPanel } from './components/ReviewPanel';
 
 // TODO: Remove style fadeIn block in the end of the page
-// TODO: Split accordion login into separate component
-// TODO: Split toast into a separate component
-// TODO: Center next button
 // TODO: Review page padding and spacing
-// TODO: Review review panel design
-// TODO: Change default products to match the design
-// TODO: Review the images to match the design
 // TODO: match tablet responsive
 // TODO: Fix products listing responsive when products have wide variants
 // TODO: Check all warnings in eslint
 // TODO: Check README.md file
-// TODO: Replace all arbitrary numbers with Tailwind spacing classes
+// TODO: Replace all arbitrary numbers with Tailwind spacing classes and colors
 // TODO: Handle /mo in review and make plan unlimited word bold
+// TODO: Add the line after accordion step
+// TODO: Replace any style prop with Tailwind classes
+// TODO: make Unlimited work in plan bold
 
 const App = () => {
   const {
@@ -63,9 +60,9 @@ const App = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      <div className="max-w-300 mx-auto px-6 py-12 flex flex-col xl:flex-row gap-6 items-start">
+      <div className="max-w-300 mx-auto py-12 flex flex-col xl:flex-row gap-6">
         {/* Builder column */}
-        <div className="flex-1 min-w-0 flex flex-col" style={{ gap: 13 }}>
+        <div className="flex-1 flex flex-col" style={{ gap: 13 }}>
           {bundleData.steps.map((step, index) => {
             const stepProducts = bundleData.products.filter((p) => step.productIds.includes(p.id));
             return (
@@ -102,8 +99,8 @@ const App = () => {
       {/* Toast */}
       {toast && (
         <div
-          className="fixed top-6 right-6 z-50 px-5 py-3 rounded-xl shadow-lg flex items-center gap-2 text-white text-sm font-medium"
-          style={{ backgroundColor: '#0AA288', animation: 'fadeIn 0.2s ease-out' }}
+          className="fixed top-6 right-6 z-50 px-5 py-3 rounded-xl shadow-lg flex items-center gap-2 text-white text-sm font-medium bg-success"
+          style={{ animation: 'fadeIn 0.2s ease-out' }}
         >
           <svg
             width="20"

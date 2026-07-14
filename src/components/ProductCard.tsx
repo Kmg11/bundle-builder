@@ -31,20 +31,17 @@ export const ProductCard = ({
 
   return (
     <div
-      className="relative flex p-[11px] rounded-[10px] transition-all"
+      className={`
+        relative flex p-2.5 rounded-[10px] transition-all bg-white gap-3.5
+      `}
       style={{
-        gap: isSelected ? 19 : 13,
-        backgroundColor: '#FFFFFF',
         border: isSelected ? '2px solid rgba(78, 47, 210, 0.7)' : 'none',
       }}
     >
       {/* Image area with overlapping badge */}
-      <div className="relative flex-shrink-0" style={{ width: 101, height: 137 }}>
+      <div className="relative shrink-0" style={{ width: 101, height: 137 }}>
         {product.badge && (
-          <div
-            className="absolute top-0 left-0 z-10 px-[6px] py-[2px] rounded-[10px] text-white text-[12px] font-semibold tracking-wide"
-            style={{ backgroundColor: '#4E2FD2' }}
-          >
+          <div className="absolute top-0 left-0 z-10 px-[6px] py-[2px] rounded-[10px] text-white text-[12px] font-semibold tracking-wide bg-primary">
             {product.badge}
           </div>
         )}
@@ -58,7 +55,7 @@ export const ProductCard = ({
         <div className="flex flex-col" style={{ gap: 10 }}>
           <div>
             <h3
-              className="text-[16px] font-semibold text-[#1F1F1F] leading-[1.1em]"
+              className="text-[16px] font-semibold text-dark leading-[1.1em]"
               style={{ letterSpacing: '0.0375em' }}
             >
               {product.name}
@@ -71,12 +68,12 @@ export const ProductCard = ({
                 product.learnMoreUrl ? (
                   <a href={product.learnMoreUrl} className="hover:opacity-80 transition-opacity">
                     {product.description.split('Learn More')[0]}
-                    <span className="text-[#0000EE] underline">Learn More</span>
+                    <span className="text-link underline">Learn More</span>
                   </a>
                 ) : (
                   <>
                     {product.description.split('Learn More')[0]}
-                    <span className="text-[#0000EE] underline">Learn More</span>
+                    <span className="text-link underline">Learn More</span>
                   </>
                 )
               ) : (
@@ -106,18 +103,12 @@ export const ProductCard = ({
                     }}
                     aria-label={`Select ${v.name}`}
                   >
-                    <div className="flex items-center justify-center" style={{ gap: 4 }}>
-                      <div className="rounded-[5px] overflow-hidden flex-shrink-0">
-                        <img
-                          src={v.image}
-                          alt={v.name}
-                          style={{ width: 28, height: 28, objectFit: 'contain' }}
-                        />
+                    <div className="flex items-center justify-center gap-1">
+                      <div className="rounded-[5px] overflow-hidden shrink-0">
+                        <img src={v.image} alt={v.name} className="w-7 h-7 object-contain" />
                       </div>
-                      <span
-                        className="text-[10px] text-[#1F1F1F] uppercase leading-none whitespace-nowrap"
-                        style={{ letterSpacing: '0.06em' }}
-                      >
+
+                      <span className="text-[10px] text-dark uppercase leading-none whitespace-nowrap">
                         {v.name}
                       </span>
                     </div>
@@ -129,7 +120,7 @@ export const ProductCard = ({
         </div>
 
         {/* Bottom row: stepper + pricing */}
-        <div className="flex items-center justify-between" style={{ gap: 10 }}>
+        <div className="flex items-center justify-between gap-2.5">
           <QuantityStepper
             quantity={stepperQuantity}
             onChange={(qty) => onChangeQuantity(currentVariantId, qty)}

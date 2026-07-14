@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import type { ReviewItem } from '../types';
 import { Price } from './Price';
 import { QuantityStepper } from './QuantityStepper';
@@ -29,7 +30,7 @@ type ReviewItemRowProps = {
 const ReviewItemRow = ({ item, onChangeQuantity }: ReviewItemRowProps) => {
   return (
     <div className="flex items-center py-2.5 gap-3">
-      <div className="w-10 h-10 rounded flex items-center justify-center flex-shrink-0 overflow-hidden bg-white">
+      <div className="w-10 h-10 rounded flex items-center justify-center shrink-0 overflow-hidden bg-white">
         <img src={item.image} alt={item.shortName} className="w-full h-full object-contain" />
       </div>
 
@@ -66,19 +67,26 @@ export const ReviewPanel = ({
   onSave,
   onCheckout,
 }: ReviewPanelProps) => {
-  const monthlyEstimate = subtotal > 0 ? (subtotal / 12).toFixed(2) : '0.00';
+  const monthlyEstimate = useMemo(
+    () => (subtotal > 0 ? (subtotal / 12).toFixed(2) : '0.00'),
+    [subtotal],
+  );
 
-  const grouped = categoryOrder
-    .map((cat) => ({
-      category: cat,
-      label: categoryLabels[cat],
-      items: items.filter((i) => i.category === cat),
-    }))
-    .filter((g) => g.items.length > 0);
+  const grouped = useMemo(
+    () =>
+      categoryOrder
+        .map((cat) => ({
+          category: cat,
+          label: categoryLabels[cat],
+          items: items.filter((i) => i.category === cat),
+        }))
+        .filter((g) => g.items.length > 0),
+    [items],
+  );
 
   return (
     <aside className="rounded-xl bg-surface w-full xl:w-[400px] shrink-0 flex flex-col md:flex-row xl:flex-col">
-      <div className='flex-1'>
+      <div className="flex-1">
         <header className="px-4 pt-4">
           <h3 className="hidden xl:block text-xs font-medium tracking-[0.16em] uppercase text-muted mb-6">
             Review
