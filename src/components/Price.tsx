@@ -9,8 +9,8 @@ type PriceVariantClasses = {
 const priceVariantClasses: Record<PriceVariant, PriceVariantClasses> = {
   default: {
     container: 'flex-row xl:flex-col gap-1 xl:gap-0 justify-center items-end',
-    price: 'text-[16px] text-price',
-    compareAtPrice: 'text-[16px] text-danger',
+    price: 'text-base text-price',
+    compareAtPrice: 'text-base text-danger',
   },
   review: {
     container: 'flex-col items-end',

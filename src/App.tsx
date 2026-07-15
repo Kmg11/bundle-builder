@@ -3,8 +3,6 @@ import { useBuilder } from './hooks/useBuilder';
 import { AccordionStep } from './components/AccordionStep';
 import { ReviewPanel } from './components/ReviewPanel';
 
-// TODO: Replace all arbitrary numbers with Tailwind spacing classes
-
 const App = () => {
   const {
     bundleData,

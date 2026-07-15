@@ -39,7 +39,7 @@ export const ProductCard = ({
       {/* Image area with overlapping badge */}
       <div className="relative shrink-0 w-full h-48 xl:w-24 xl:h-full">
         {product.badge && (
-          <div className="absolute top-0 left-0 z-10 px-[6px] py-[2px] rounded-[10px] text-white text-[12px] font-semibold tracking-wide bg-primary">
+          <div className="absolute top-0 left-0 z-10 px-1.5 py-0.5 rounded-[10px] text-white text-xs font-semibold tracking-wide bg-primary">
             {product.badge}
           </div>
         )}
@@ -52,8 +52,8 @@ export const ProductCard = ({
       <div className="flex-1 min-w-0 flex flex-col justify-between gap-2.5">
         <div className="flex flex-col gap-2.5">
           <div>
-            <h3 className="text-[16px] font-semibold text-dark leading-[1.1em]">{product.name}</h3>
-            <p className="text-[12px] mt-1 text-dark/75">
+            <h3 className="text-base font-semibold text-dark">{product.name}</h3>
+            <p className="text-xs mt-1 text-dark/75">
               {product.description.includes('Learn More') ? (
                 product.learnMoreUrl ? (
                   <a href={product.learnMoreUrl} className="hover:opacity-80 transition-opacity">

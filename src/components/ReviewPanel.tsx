@@ -86,10 +86,10 @@ export const ReviewPanel = ({
   );
 
   return (
-    <aside className="rounded-xl bg-surface w-full xl:w-[400px] shrink-0 flex flex-col md:flex-row xl:flex-col">
+    <aside className="rounded-xl bg-surface w-full xl:w-100 shrink-0 flex flex-col md:flex-row xl:flex-col">
       <div className="flex-1">
         <header className="px-4 pt-4">
-          <h3 className="hidden xl:block text-xs font-medium tracking-[0.16em] uppercase text-muted mb-6">
+          <h3 className="hidden xl:block text-xs font-medium uppercase text-muted mb-6">
             Review
           </h3>
 
@@ -107,7 +107,7 @@ export const ReviewPanel = ({
         <div className="px-5 space-y-4 mt-2.5">
           {grouped.map((group) => (
             <div key={group.category}>
-              <div className="text-xs font-normal tracking-[0.03em] uppercase text-category pt-4 pb-2 border-t border-divider">
+              <div className="text-xs font-normal uppercase text-category pt-4 pb-2 border-t border-divider">
                 {group.label}
               </div>
 

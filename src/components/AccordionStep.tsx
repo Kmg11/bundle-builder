@@ -44,7 +44,7 @@ export const AccordionStep = ({
     >
       {/* Step label - separate from header */}
       <div className="px-4 pb-1.5">
-        <span className="text-[12px] font-medium uppercase text-muted text-left block">
+        <span className="text-xs font-medium uppercase text-muted text-left block">
           Step {step.number} of 4
         </span>
       </div>
@@ -59,17 +59,17 @@ export const AccordionStep = ({
         `}
       >
         <div className="flex items-center gap-2">
-          <div className="w-10 h-10 rounded-[6px] flex items-center justify-center bg-surface-alt shrink-0">
+          <div className="w-10 h-10 rounded-md flex items-center justify-center bg-surface-alt shrink-0">
             <img src={stepIcons[step.icon] || ''} alt="" width={26} height={26} />
           </div>
-          <h2 className="text-[22px] font-semibold text-dark leading-[1em] text-left">
+          <h2 className="text-[22px] font-semibold text-dark text-left">
             {step.title}
           </h2>
         </div>
 
-        <div className="flex items-center gap-[4px]">
+          <div className="flex items-center gap-1">
           {isOpen && selectedCount > 0 && (
-            <span className="text-[14px] font-medium text-primary mr-2">
+            <span className="text-sm font-medium text-primary mr-2">
               {selectedCount} selected
             </span>
           )}
@@ -94,7 +94,7 @@ export const AccordionStep = ({
               const hasQty = Object.values(productVariants).some((q) => q > 0);
 
               return (
-                <div key={product.id} className="flex-1 min-w-[280px]">
+                <div key={product.id} className="flex-1 min-w-70">
                   <ProductCard
                     product={product}
                     activeVariant={activeVariant}
@@ -116,7 +116,7 @@ export const AccordionStep = ({
               <button
                 type="button"
                 onClick={onNext}
-                className="px-6 h-10 rounded-[7px] border text-[18px] font-semibold transition-colors cursor-pointer border-primary text-primary bg-transparent"
+                className="px-6 h-10 rounded-[7px] border text-lg font-semibold transition-colors cursor-pointer border-primary text-primary bg-transparent"
               >
                 Next: {nextLabel}
               </button>
