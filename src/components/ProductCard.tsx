@@ -33,10 +33,8 @@ export const ProductCard = ({
     <div
       className={`
         relative flex flex-col xl:flex-row h-full p-2.5 rounded-[10px] transition-all bg-white gap-3.5
+        ${isSelected ? 'border-2 border-primary-70' : ''}
       `}
-      style={{
-        border: isSelected ? '2px solid rgba(78, 47, 210, 0.7)' : 'none',
-      }}
     >
       {/* Image area with overlapping badge */}
       <div className="relative shrink-0 w-full h-48 xl:w-24 xl:h-full">
@@ -51,19 +49,11 @@ export const ProductCard = ({
       </div>
 
       {/* Content area */}
-      <div className="flex-1 min-w-0 flex flex-col justify-between" style={{ gap: 10 }}>
-        <div className="flex flex-col" style={{ gap: 10 }}>
+      <div className="flex-1 min-w-0 flex flex-col justify-between gap-2.5">
+        <div className="flex flex-col gap-2.5">
           <div>
-            <h3
-              className="text-[16px] font-semibold text-dark leading-[1.1em]"
-              style={{ letterSpacing: '0.0375em' }}
-            >
-              {product.name}
-            </h3>
-            <p
-              className="text-[12px] mt-1 leading-[1.3em]"
-              style={{ color: 'rgba(31,31,31,0.75)', letterSpacing: '0.05em' }}
-            >
+            <h3 className="text-[16px] font-semibold text-dark leading-[1.1em]">{product.name}</h3>
+            <p className="text-[12px] mt-1 text-dark/75">
               {product.description.includes('Learn More') ? (
                 product.learnMoreUrl ? (
                   <a href={product.learnMoreUrl} className="hover:opacity-80 transition-opacity">
@@ -95,7 +85,7 @@ export const ProductCard = ({
                     onClick={() => onSelectVariant(v.id)}
                     className={`
                       flex items-center justify-center cursor-pointer py-0.5 px-1 rounded-xs border-[0.5px] bg-white
-                      ${isActive ? 'border-success bg-primary-light' : 'border-chip-border'}
+                      ${isActive ? 'border-success bg-chip-active-bg' : 'border-chip-border'}
                     `}
                     aria-label={`Select ${v.name}`}
                   >

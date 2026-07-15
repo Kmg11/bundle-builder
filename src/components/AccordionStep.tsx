@@ -84,7 +84,7 @@ export const AccordionStep = ({
 
       {/* Expanded content */}
       {isOpen && (
-        <div className="flex flex-col" style={{ padding: '15px 15px 20px', gap: 15 }}>
+        <div className="flex flex-col gap-4 pt-4 pb-5 px-4">
           {/* Product cards - flex layout */}
           <div className="flex flex-wrap justify-center items-stretch gap-4">
             {products.map((product) => {
