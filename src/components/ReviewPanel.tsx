@@ -89,9 +89,7 @@ export const ReviewPanel = ({
     <aside className="rounded-xl bg-surface w-full xl:w-100 shrink-0 flex flex-col md:flex-row xl:flex-col">
       <div className="flex-1">
         <header className="px-4 pt-4">
-          <h3 className="hidden xl:block text-xs font-medium uppercase text-muted mb-6">
-            Review
-          </h3>
+          <h3 className="hidden xl:block text-xs font-medium uppercase text-muted mb-6">Review</h3>
 
           <div className="px-1">
             <h2 className="text-[22px] font-semibold text-dark leading-tight tracking-wide">

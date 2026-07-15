@@ -62,16 +62,12 @@ export const AccordionStep = ({
           <div className="w-10 h-10 rounded-md flex items-center justify-center bg-surface-alt shrink-0">
             <img src={stepIcons[step.icon] || ''} alt="" width={26} height={26} />
           </div>
-          <h2 className="text-[22px] font-semibold text-dark text-left">
-            {step.title}
-          </h2>
+          <h2 className="text-[22px] font-semibold text-dark text-left">{step.title}</h2>
         </div>
 
-          <div className="flex items-center gap-1">
+        <div className="flex items-center gap-1">
           {isOpen && selectedCount > 0 && (
-            <span className="text-sm font-medium text-primary mr-2">
-              {selectedCount} selected
-            </span>
+            <span className="text-sm font-medium text-primary mr-2">{selectedCount} selected</span>
           )}
           <img
             src={isOpen ? '/images/icon-carrot-up.svg' : '/images/icon-carrot-down.svg'}
