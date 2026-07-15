@@ -52,6 +52,7 @@ const ReviewItemRow = ({ item, onChangeQuantity }: ReviewItemRowProps) => {
           price={item.price * item.quantity}
           compareAtPrice={item.compareAtPrice ? item.compareAtPrice * item.quantity : undefined}
           variant="review"
+          suffix={item.category === 'plan' ? '/mo' : undefined}
         />
       </div>
     </div>

@@ -116,11 +116,7 @@ export const ProductCard = ({
           <Price
             price={product.price}
             compareAtPrice={product.compareAtPrice}
-            suffix={
-              product.stepId === 'plan' && (
-                <span className="text-[10px] font-normal text-price">/mo</span>
-              )
-            }
+            suffix={product.stepId === 'plan' ? '/mo' : undefined}
           />
         </div>
       </div>

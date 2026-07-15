@@ -28,7 +28,7 @@ type PriceProps = {
   price: number;
   compareAtPrice?: number;
   variant?: PriceVariant;
-  suffix?: React.ReactNode;
+  suffix?: string;
 };
 
 export const Price = ({ price, compareAtPrice, variant = 'default', suffix }: PriceProps) => {
@@ -39,6 +39,7 @@ export const Price = ({ price, compareAtPrice, variant = 'default', suffix }: Pr
       {compareAtPrice && (
         <span className={`line-through ${priceVariantClasses[variant].compareAtPrice}`}>
           ${compareAtPrice.toFixed(2)}
+          {suffix}
         </span>
       )}
 

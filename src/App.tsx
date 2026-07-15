@@ -4,8 +4,6 @@ import { AccordionStep } from './components/AccordionStep';
 import { ReviewPanel } from './components/ReviewPanel';
 
 // TODO: Replace all arbitrary numbers with Tailwind spacing classes
-// TODO: Handle /mo in review and make plan unlimited word bold
-// TODO: make Unlimited work in plan bold
 
 const App = () => {
   const {
@@ -90,9 +88,7 @@ const App = () => {
 
       {/* Toast */}
       {toast && (
-        <div
-          className="fixed top-6 right-6 z-50 px-5 py-3 rounded-xl shadow-lg flex items-center gap-2 text-white text-sm font-medium bg-success animate-fade-in"
-        >
+        <div className="fixed top-6 right-6 z-50 px-5 py-3 rounded-xl shadow-lg flex items-center gap-2 text-white text-sm font-medium bg-success animate-fade-in">
           <svg
             width="20"
             height="20"
