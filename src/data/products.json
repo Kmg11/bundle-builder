@@ -45,11 +45,11 @@
       "badge": "Save 22%",
       "price": 27.98,
       "compareAtPrice": 35.98,
-      "image": "/images/wyze-cam-v4.png",
+      "image": "images/wyze-cam-v4.png",
       "variants": [
-        { "id": "white", "name": "White", "image": "/images/wyze-cam-v4-white.png" },
-        { "id": "grey", "name": "Grey", "image": "/images/wyze-cam-v4-grey.png" },
-        { "id": "black", "name": "Black", "image": "/images/wyze-cam-v4-black.png" }
+        { "id": "white", "name": "White", "image": "images/wyze-cam-v4-white.png" },
+        { "id": "grey", "name": "Grey", "image": "images/wyze-cam-v4-grey.png" },
+        { "id": "black", "name": "Black", "image": "images/wyze-cam-v4-black.png" }
       ],
       "category": "cameras"
     },
@@ -62,10 +62,10 @@
       "badge": "Save 12%",
       "price": 34.98,
       "compareAtPrice": 39.98,
-      "image": "/images/wyze-cam-pan-v3.png",
+      "image": "images/wyze-cam-pan-v3.png",
       "variants": [
-        { "id": "white", "name": "White", "image": "/images/wyze-cam-pan-v3-white.png" },
-        { "id": "black", "name": "Black", "image": "/images/wyze-cam-pan-v3-black.png" }
+        { "id": "white", "name": "White", "image": "images/wyze-cam-pan-v3-white.png" },
+        { "id": "black", "name": "Black", "image": "images/wyze-cam-pan-v3-black.png" }
       ],
       "category": "cameras"
     },
@@ -78,10 +78,10 @@
       "badge": "Save 22%",
       "price": 69.98,
       "compareAtPrice": 89.98,
-      "image": "/images/wyze-cam-floodlight-v2.png",
+      "image": "images/wyze-cam-floodlight-v2.png",
       "variants": [
-        { "id": "white", "name": "White", "image": "/images/wyze-cam-floodlight-v2-white.png" },
-        { "id": "grey", "name": "Grey", "image": "/images/wyze-cam-floodlight-v2-grey.png" }
+        { "id": "white", "name": "White", "image": "images/wyze-cam-floodlight-v2-white.png" },
+        { "id": "grey", "name": "Grey", "image": "images/wyze-cam-floodlight-v2-grey.png" }
       ],
       "category": "cameras"
     },
@@ -94,7 +94,7 @@
       "badge": "Save 20%",
       "price": 47.98,
       "compareAtPrice": 59.98,
-      "image": "/images/wyze-duo-cam-doorbell.png",
+      "image": "images/wyze-duo-cam-doorbell.png",
       "category": "cameras"
     },
     {
@@ -106,7 +106,7 @@
       "badge": "Save 25%",
       "price": 59.98,
       "compareAtPrice": 79.98,
-      "image": "/images/wyze-battery-cam-pro.png",
+      "image": "images/wyze-battery-cam-pro.png",
       "category": "cameras"
     },
     {
@@ -117,7 +117,7 @@
       "price": 9.99,
       "compareAtPrice": 12.99,
       "priceSuffix": "/mo",
-      "image": "/images/cam-unlimited-logo.svg",
+      "image": "images/cam-unlimited-logo.svg",
       "category": "plan"
     },
     {
@@ -126,7 +126,7 @@
       "shortName": "Motion Sensor",
       "description": "Instant alerts when motion is detected.",
       "price": 59.98,
-      "image": "/images/wyze-sense-motion-sensor.png",
+      "image": "images/wyze-sense-motion-sensor.png",
       "category": "sensors"
     },
     {
@@ -136,7 +136,7 @@
       "description": "The brain of your Wyze Sense system.",
       "price": 0,
       "compareAtPrice": 29.92,
-      "image": "/images/wyze-sense-hub.png",
+      "image": "images/wyze-sense-hub.png",
       "category": "sensors"
     },
     {
@@ -145,7 +145,7 @@
       "shortName": "MicroSD Card",
       "description": "256GB microSD card for local video storage.",
       "price": 41.96,
-      "image": "/images/wyze-microsd-card.png",
+      "image": "images/wyze-microsd-card.png",
       "category": "accessories"
     }
   ]

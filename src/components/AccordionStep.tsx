@@ -1,5 +1,6 @@
 import type { Step, Product, Selections } from '../types';
 import { ProductCard } from './ProductCard';
+import { PublicImage } from './PublicImage';
 
 type AccordionStepProps = {
   step: Step;
@@ -15,10 +16,10 @@ type AccordionStepProps = {
 };
 
 const stepIcons: Record<string, string> = {
-  camera: '/images/icon-camera.svg',
-  plan: '/images/icon-plan.svg',
-  sensor: '/images/icon-sensors.svg',
-  shield: '/images/icon-shield.svg',
+  camera: 'images/icon-camera.svg',
+  plan: 'images/icon-plan.svg',
+  sensor: 'images/icon-sensors.svg',
+  shield: 'images/icon-shield.svg',
 };
 
 export const AccordionStep = ({
@@ -58,7 +59,7 @@ export const AccordionStep = ({
       >
         <div className="flex items-center gap-2">
           <div className="w-10 h-10 rounded-md flex items-center justify-center bg-surface-alt shrink-0">
-            <img src={stepIcons[step.icon] || ''} alt="" width={26} height={26} />
+            <PublicImage src={stepIcons[step.icon] || ''} alt="" width={26} height={26} />
           </div>
           <h2 className="text-[22px] font-semibold text-dark text-left">{step.title}</h2>
         </div>
@@ -67,8 +68,8 @@ export const AccordionStep = ({
           {isOpen && selectedCount > 0 && (
             <span className="text-sm font-medium text-primary mr-2">{selectedCount} selected</span>
           )}
-          <img
-            src={isOpen ? '/images/icon-carrot-up.svg' : '/images/icon-carrot-down.svg'}
+          <PublicImage
+            src={isOpen ? 'images/icon-carrot-up.svg' : 'images/icon-carrot-down.svg'}
             alt=""
             width={12}
             height={12}

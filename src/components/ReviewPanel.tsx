@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import type { ReviewItem } from '../types';
 import { Price } from './Price';
+import { PublicImage } from './PublicImage';
 import { QuantityStepper } from './QuantityStepper';
 
 type ReviewPanelProps = {
@@ -30,7 +31,7 @@ const ReviewItemRow = ({ item, onChangeQuantity }: ReviewItemRowProps) => {
   return (
     <div className="flex items-center py-2.5 gap-3">
       <div className="w-10 h-10 rounded flex items-center justify-center shrink-0 overflow-hidden bg-white">
-        <img src={item.image} alt={item.shortName} className="w-full h-full object-contain" />
+        <PublicImage src={item.image} alt={item.shortName} className="w-full h-full object-contain" />
       </div>
 
       <div className="flex-1 min-w-0">
@@ -125,7 +126,7 @@ export const ReviewPanel = ({
 
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
-              <img src="/images/icon-shipping.svg" alt="" width={24} height={24} />
+              <PublicImage src="images/icon-shipping.svg" alt="" width={24} height={24} />
               <span className="text-sm font-medium text-dark">Fast Shipping</span>
             </div>
 
@@ -139,8 +140,8 @@ export const ReviewPanel = ({
         <div className="flex flex-1 flex-row md:flex-col xl:flex-row items-center md:items-stretch xl:items-center justify-between gap-3 mb-4 rounded-xl">
           <div className="flex items-center gap-6">
             <div className="w-20 h-20 md:w-32 md:h-32 xl:w-20 xl:h-20 rounded overflow-hidden">
-              <img
-                src="/images/satisfaction-badge.png"
+              <PublicImage
+                src="images/satisfaction-badge.png"
                 alt="Satisfaction Guaranteed"
                 className="w-full h-full object-contain"
               />

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import type { Product } from '../types';
 import { Price } from './Price';
+import { PublicImage } from './PublicImage';
 import { QuantityStepper } from './QuantityStepper';
 
 type ProductCardProps = {
@@ -48,7 +49,7 @@ export const ProductCard = ({
           </div>
         )}
         <div className="w-full h-full rounded-[5px] flex items-center justify-center overflow-hidden bg-white">
-          <img src={mainImage} alt={product.name} className="w-full h-full object-contain" />
+          <PublicImage src={mainImage} alt={product.name} className="w-full h-full object-contain" />
         </div>
       </div>
 
@@ -93,7 +94,7 @@ export const ProductCard = ({
                   >
                     <div className="flex items-center justify-center gap-1">
                       <div className="w-7 h-7 overflow-hidden shrink-0">
-                        <img src={v.image} alt={v.name} className="w-full h-full object-contain" />
+                        <PublicImage src={v.image} alt={v.name} className="w-full h-full object-contain" />
                       </div>
 
                       <span className="text-[10px] text-dark uppercase leading-none whitespace-nowrap">

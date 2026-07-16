@@ -1,3 +1,5 @@
+import { PublicImage } from './PublicImage';
+
 type QuantityStepperProps = {
   quantity: number;
   onChange: (qty: number) => void;
@@ -35,7 +37,7 @@ export const QuantityStepper = ({
         aria-label="Decrease quantity"
         disabled={isMinusDisabled}
       >
-        <img src="/images/icon-minus.svg" alt="" width={8} height={10} />
+        <PublicImage src="images/icon-minus.svg" alt="" width={8} height={10} />
       </button>
 
       <span className="flex-1 text-center text-base font-medium leading-5 text-dark min-w-3.5">
@@ -53,7 +55,7 @@ export const QuantityStepper = ({
         aria-label="Increase quantity"
         disabled={isPlusDisabled}
       >
-        <img src="/images/icon-plus.svg" alt="" width={8} height={8} />
+        <PublicImage src="images/icon-plus.svg" alt="" width={8} height={8} />
       </button>
     </div>
   );
