@@ -20,9 +20,7 @@ export const ProductCard = ({
 
   const [activeVariant, setActiveVariant] = useState(() => {
     if (!hasVariants) return 'default';
-    const firstWithQty = product.variants!.find(
-      (v) => (allVariantQuantities[v.id] || 0) > 0,
-    );
+    const firstWithQty = product.variants!.find((v) => (allVariantQuantities[v.id] || 0) > 0);
     return firstWithQty?.id || product.variants![0].id;
   });
 
@@ -59,21 +57,19 @@ export const ProductCard = ({
         <div className="flex flex-col gap-2.5">
           <div>
             <h3 className="text-base font-semibold text-dark">{product.name}</h3>
+
             <p className="text-xs mt-1 text-dark/75">
-              {product.description.includes('Learn More') ? (
-                product.learnMoreUrl ? (
-                  <a href={product.learnMoreUrl} className="hover:opacity-80 transition-opacity">
-                    {product.description.split('Learn More')[0]}
-                    <span className="text-link underline">Learn More</span>
+              {product.description}
+              {product.learnMoreUrl && (
+                <>
+                  {' '}
+                  <a
+                    href={product.learnMoreUrl}
+                    className="text-link underline hover:opacity-80 transition-opacity"
+                  >
+                    Learn More
                   </a>
-                ) : (
-                  <>
-                    {product.description.split('Learn More')[0]}
-                    <span className="text-link underline">Learn More</span>
-                  </>
-                )
-              ) : (
-                product.description
+                </>
               )}
             </p>
           </div>

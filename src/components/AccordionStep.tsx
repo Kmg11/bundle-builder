@@ -86,7 +86,7 @@ export const AccordionStep = ({
               const hasQty = Object.values(productVariants).some((q) => q > 0);
 
               return (
-                <div key={product.id} className="flex-1 min-w-70">
+                <div key={product.id} className="flex-1 min-w-70 sm:max-w-72 xl:max-w-sm">
                   <ProductCard
                     product={product}
                     allVariantQuantities={productVariants}
