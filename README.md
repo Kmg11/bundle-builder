@@ -2,6 +2,10 @@
 
 A multi-step bundle builder for configuring a home security system, built with React, TypeScript, and Tailwind CSS.
 
+## Live Preview
+
+[https://kmg11.github.io/bundle-builder/](https://kmg11.github.io/bundle-builder/)
+
 ## Run Instructions
 
 ```bash
