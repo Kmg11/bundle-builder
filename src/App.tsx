@@ -10,13 +10,10 @@ const App = () => {
     reviewItems,
     subtotal,
     totalCompareAt,
-    totalItems,
     savings,
     setQuantity,
-    setActiveVariant,
     saveSystem,
     getStepSelectedCount,
-    getActiveVariant,
     getStepNextLabel,
   } = useBuilder();
 
@@ -40,12 +37,6 @@ const App = () => {
     setTimeout(() => setToast(null), 3000);
   };
 
-  const activeVariants = Object.fromEntries(
-    bundleData.products
-      .filter((p) => p.variants && p.variants.length > 0)
-      .map((p) => [p.id, getActiveVariant(p.id)]),
-  );
-
   return (
     <div className="min-h-screen bg-white">
       <div className="max-w-300 mx-auto py-12 flex flex-col xl:flex-row gap-6">
@@ -57,6 +48,7 @@ const App = () => {
               <AccordionStep
                 key={step.id}
                 step={step}
+                totalSteps={bundleData.steps.length}
                 products={stepProducts}
                 isOpen={openStep === index}
                 selectedCount={getStepSelectedCount(step)}
@@ -64,9 +56,7 @@ const App = () => {
                 onNext={handleNext}
                 nextLabel={getStepNextLabel(index)}
                 selections={selections}
-                activeVariants={activeVariants}
                 onChangeQuantity={setQuantity}
-                onSelectVariant={setActiveVariant}
               />
             );
           })}
@@ -76,7 +66,6 @@ const App = () => {
           items={reviewItems}
           subtotal={subtotal}
           totalCompareAt={totalCompareAt}
-          totalItems={totalItems}
           savings={savings}
           onChangeQuantity={setQuantity}
           onSave={handleSave}

@@ -3,6 +3,7 @@ import { ProductCard } from './ProductCard';
 
 type AccordionStepProps = {
   step: Step;
+  totalSteps: number;
   products: Product[];
   isOpen: boolean;
   selectedCount: number;
@@ -10,9 +11,7 @@ type AccordionStepProps = {
   onNext: () => void;
   nextLabel: string;
   selections: Selections;
-  activeVariants: Record<string, string>;
   onChangeQuantity: (productId: string, variantId: string, qty: number) => void;
-  onSelectVariant: (productId: string, variantId: string) => void;
 };
 
 const stepIcons: Record<string, string> = {
@@ -24,6 +23,7 @@ const stepIcons: Record<string, string> = {
 
 export const AccordionStep = ({
   step,
+  totalSteps,
   products,
   isOpen,
   selectedCount,
@@ -31,9 +31,7 @@ export const AccordionStep = ({
   onNext,
   nextLabel,
   selections,
-  activeVariants,
   onChangeQuantity,
-  onSelectVariant,
 }: AccordionStepProps) => {
   return (
     <div
@@ -45,7 +43,7 @@ export const AccordionStep = ({
       {/* Step label - separate from header */}
       <div className="px-4 pb-1.5">
         <span className="text-xs font-medium uppercase text-muted text-left block">
-          Step {step.number} of 4
+          Step {step.number} of {totalSteps}
         </span>
       </div>
 
@@ -85,21 +83,17 @@ export const AccordionStep = ({
           <div className="flex flex-wrap justify-center items-stretch gap-4">
             {products.map((product) => {
               const productVariants = selections[product.id] || {};
-              const activeVariant =
-                activeVariants[product.id] || product.variants?.[0]?.id || 'default';
               const hasQty = Object.values(productVariants).some((q) => q > 0);
 
               return (
                 <div key={product.id} className="flex-1 min-w-70">
                   <ProductCard
                     product={product}
-                    activeVariant={activeVariant}
                     allVariantQuantities={productVariants}
                     isSelected={hasQty}
                     onChangeQuantity={(variantId, qty) =>
                       onChangeQuantity(product.id, variantId, qty)
                     }
-                    onSelectVariant={(variantId) => onSelectVariant(product.id, variantId)}
                   />
                 </div>
               );

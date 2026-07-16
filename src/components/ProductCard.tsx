@@ -1,25 +1,31 @@
+import { useState } from 'react';
 import type { Product } from '../types';
 import { Price } from './Price';
 import { QuantityStepper } from './QuantityStepper';
 
 type ProductCardProps = {
   product: Product;
-  activeVariant: string;
   allVariantQuantities: Record<string, number>;
   isSelected: boolean;
   onChangeQuantity: (variantId: string, qty: number) => void;
-  onSelectVariant: (variantId: string) => void;
 };
 
 export const ProductCard = ({
   product,
-  activeVariant,
   allVariantQuantities,
   isSelected,
   onChangeQuantity,
-  onSelectVariant,
 }: ProductCardProps) => {
   const hasVariants = product.variants && product.variants.length > 0;
+
+  const [activeVariant, setActiveVariant] = useState(() => {
+    if (!hasVariants) return 'default';
+    const firstWithQty = product.variants!.find(
+      (v) => (allVariantQuantities[v.id] || 0) > 0,
+    );
+    return firstWithQty?.id || product.variants![0].id;
+  });
+
   const currentVariantId = hasVariants ? activeVariant : 'default';
   const stepperQuantity = hasVariants
     ? allVariantQuantities[activeVariant] || 0
@@ -82,7 +88,7 @@ export const ProductCard = ({
                   <button
                     key={v.id}
                     type="button"
-                    onClick={() => onSelectVariant(v.id)}
+                    onClick={() => setActiveVariant(v.id)}
                     className={`
                       flex items-center justify-center cursor-pointer py-0.5 px-1 rounded-xs border-[0.5px] bg-white
                       ${isActive ? 'border-success bg-chip-active-bg' : 'border-chip-border'}
@@ -116,7 +122,7 @@ export const ProductCard = ({
           <Price
             price={product.price}
             compareAtPrice={product.compareAtPrice}
-            suffix={product.stepId === 'plan' ? '/mo' : undefined}
+            suffix={product.priceSuffix}
           />
         </div>
       </div>

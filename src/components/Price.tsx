@@ -36,7 +36,7 @@ export const Price = ({ price, compareAtPrice, variant = 'default', suffix }: Pr
 
   return (
     <div className={`flex ${priceVariantClasses[variant].container}`}>
-      {compareAtPrice && (
+      {compareAtPrice != null && (
         <span className={`line-through ${priceVariantClasses[variant].compareAtPrice}`}>
           ${compareAtPrice.toFixed(2)}
           {suffix}

@@ -6,7 +6,6 @@ export type Variant = {
 
 export type Product = {
   id: string;
-  stepId: string;
   name: string;
   shortName: string;
   description: string;
@@ -14,6 +13,7 @@ export type Product = {
   badge?: string;
   price: number;
   compareAtPrice?: number;
+  priceSuffix?: string;
   variants?: Variant[];
   image: string;
   category: 'cameras' | 'sensors' | 'accessories' | 'plan';
@@ -41,6 +41,7 @@ export type ReviewItem = {
   quantity: number;
   price: number;
   compareAtPrice?: number;
+  priceSuffix?: string;
   image: string;
 };
 

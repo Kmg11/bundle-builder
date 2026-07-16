@@ -2,11 +2,20 @@ type QuantityStepperProps = {
   quantity: number;
   onChange: (qty: number) => void;
   variant?: 'card' | 'review';
+  max?: number;
 };
 
-export const QuantityStepper = ({ quantity, onChange, variant = 'card' }: QuantityStepperProps) => {
+const DEFAULT_MAX = 99;
+
+export const QuantityStepper = ({
+  quantity,
+  onChange,
+  variant = 'card',
+  max = DEFAULT_MAX,
+}: QuantityStepperProps) => {
   const isReview = variant === 'review';
   const isMinusDisabled = quantity <= 0;
+  const isPlusDisabled = quantity >= max;
 
   return (
     <div
@@ -35,12 +44,14 @@ export const QuantityStepper = ({ quantity, onChange, variant = 'card' }: Quanti
 
       <button
         type="button"
-        onClick={() => onChange(quantity + 1)}
+        onClick={() => !isPlusDisabled && onChange(quantity + 1)}
         className={`
-          flex items-center justify-center rounded-sm transition-colors cursor-pointer shrink-0 w-5 h-5 
+          flex items-center justify-center rounded-sm transition-colors shrink-0 w-5 h-5 
           ${isReview ? 'bg-white' : 'bg-surface-alt'}
+          ${isPlusDisabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}
         `}
         aria-label="Increase quantity"
+        disabled={isPlusDisabled}
       >
         <img src="/images/icon-plus.svg" alt="" width={8} height={8} />
       </button>

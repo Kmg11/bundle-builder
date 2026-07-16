@@ -1,4 +1,4 @@
-import { useCallback, useReducer } from 'react';
+import { useCallback, useMemo, useReducer } from 'react';
 import type {
   BundleData,
   Product,
@@ -12,6 +12,7 @@ import productsData from '../data/products.json';
 const STORAGE_KEY = 'bundle-builder-system';
 
 const bundleData: BundleData = productsData as BundleData;
+const productById = new Map(bundleData.products.map((p) => [p.id, p]));
 
 function getDefaultSelections(): Selections {
   return {
@@ -24,91 +25,47 @@ function getDefaultSelections(): Selections {
   };
 }
 
-type Action =
-  | { type: 'SET_QUANTITY'; productId: string; variantId: string; quantity: number }
-  | { type: 'SET_ACTIVE_VARIANT'; productId: string; variantId: string };
-
-type BuilderState = {
-  selections: Selections;
-  activeVariants: Record<string, string>;
+type Action = {
+  type: 'SET_QUANTITY';
+  productId: string;
+  variantId: string;
+  quantity: number;
 };
 
-function getInitialActiveVariants(selections: Selections): Record<string, string> {
-  const active: Record<string, string> = {};
-
-  for (const product of bundleData.products) {
-    if (product.variants && product.variants.length > 0) {
-      const saved = selections[product.id];
-
-      if (saved) {
-        const firstNonZero = Object.entries(saved).find(([, q]) => q > 0);
-
-        active[product.id] = firstNonZero ? firstNonZero[0] : product.variants[0].id;
-      } else {
-        active[product.id] = product.variants[0].id;
-      }
-    }
-  }
-
-  return active;
-}
-
-function loadSavedState(): BuilderState {
+function loadSavedState(): Selections {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-
-    if (raw) {
-      const saved: Selections = JSON.parse(raw);
-      return { selections: saved, activeVariants: getInitialActiveVariants(saved) };
-    }
+    if (raw) return JSON.parse(raw);
   } catch {
     // ignore
   }
-
-  const defaultSelections = getDefaultSelections();
-
-  return {
-    selections: defaultSelections,
-    activeVariants: getInitialActiveVariants(defaultSelections),
-  };
+  return getDefaultSelections();
 }
 
-function reducer(state: BuilderState, action: Action): BuilderState {
-  switch (action.type) {
-    case 'SET_QUANTITY': {
-      const { productId, variantId, quantity } = action;
+function reducer(state: Selections, action: Action): Selections {
+  const { productId, variantId, quantity } = action;
 
-      const newSelections = { ...state.selections };
-      const productSelections: VariantQuantities = { ...newSelections[productId] };
+  const newSelections = { ...state };
+  const productSelections: VariantQuantities = { ...newSelections[productId] };
 
-      if (quantity <= 0) {
-        delete productSelections[variantId];
-      } else {
-        productSelections[variantId] = quantity;
-      }
-
-      if (Object.keys(productSelections).length === 0) {
-        delete newSelections[productId];
-      } else {
-        newSelections[productId] = productSelections;
-      }
-
-      return { ...state, selections: newSelections };
-    }
-    case 'SET_ACTIVE_VARIANT': {
-      return {
-        ...state,
-        activeVariants: { ...state.activeVariants, [action.productId]: action.variantId },
-      };
-    }
-    default:
-      return state;
+  if (quantity <= 0) {
+    delete productSelections[variantId];
+  } else {
+    productSelections[variantId] = quantity;
   }
+
+  if (Object.keys(productSelections).length === 0) {
+    delete newSelections[productId];
+  } else {
+    newSelections[productId] = productSelections;
+  }
+
+  return newSelections;
 }
 
 function getStepSelectedCount(step: Step, selections: Selections): number {
   return step.productIds.reduce((count, pid) => {
-    const product = bundleData.products.find((p) => p.id === pid);
+    const product = productById.get(pid);
     if (!product) return count;
 
     const s = selections[pid];
@@ -141,15 +98,11 @@ function toReviewItem(
     quantity,
     price: product.price,
     compareAtPrice: product.compareAtPrice,
+    priceSuffix: product.priceSuffix,
     image,
   };
 }
 
-/**
- * Builds a flat list of ReviewItems from the current selections.
- * Products with variants (e.g. cameras with color options) produce one item per selected variant.
- * Products without variants produce a single item keyed by 'default' if quantity > 0.
- */
 function getReviewItems(selections: Selections): ReviewItem[] {
   return bundleData.products.flatMap((product) => {
     const s = selections[product.id];
@@ -180,47 +133,34 @@ function getTotalCompareAt(items: ReviewItem[]): number {
 
 function getTotalQuantity(selections: Selections): number {
   let total = 0;
-
   for (const variantQty of Object.values(selections)) {
     for (const q of Object.values(variantQty)) {
       total += q;
     }
   }
-
   return total;
 }
 
 export function useBuilder() {
-  const [state, dispatch] = useReducer(reducer, null, loadSavedState);
+  const [selections, dispatch] = useReducer(reducer, null, loadSavedState);
 
   const setQuantity = useCallback((productId: string, variantId: string, quantity: number) => {
     dispatch({ type: 'SET_QUANTITY', productId, variantId, quantity: Math.max(0, quantity) });
   }, []);
 
-  const setActiveVariant = useCallback((productId: string, variantId: string) => {
-    dispatch({ type: 'SET_ACTIVE_VARIANT', productId, variantId });
-  }, []);
-
   const saveSystem = useCallback(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state.selections));
-  }, [state.selections]);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(selections));
+  }, [selections]);
 
-  const reviewItems = getReviewItems(state.selections);
-  const subtotal = getSubtotal(reviewItems);
-  const totalCompareAt = getTotalCompareAt(reviewItems);
-  const totalItems = getTotalQuantity(state.selections);
+  const reviewItems = useMemo(() => getReviewItems(selections), [selections]);
+  const subtotal = useMemo(() => getSubtotal(reviewItems), [reviewItems]);
+  const totalCompareAt = useMemo(() => getTotalCompareAt(reviewItems), [reviewItems]);
+  const totalItems = useMemo(() => getTotalQuantity(selections), [selections]);
   const savings = totalCompareAt - subtotal;
 
   const getStepSelectedCountFn = useCallback(
-    (step: Step) => getStepSelectedCount(step, state.selections),
-    [state.selections],
-  );
-
-  const getActiveVariant = useCallback(
-    (productId: string): string => {
-      return state.activeVariants[productId] || '';
-    },
-    [state.activeVariants],
+    (step: Step) => getStepSelectedCount(step, selections),
+    [selections],
   );
 
   const getStepNextLabel = useCallback((currentStepIndex: number): string => {
@@ -231,17 +171,15 @@ export function useBuilder() {
 
   return {
     bundleData,
-    selections: state.selections,
+    selections,
     reviewItems,
     subtotal,
     totalCompareAt,
     totalItems,
     savings,
     setQuantity,
-    setActiveVariant,
     saveSystem,
     getStepSelectedCount: getStepSelectedCountFn,
-    getActiveVariant,
     getStepNextLabel,
   };
 }

@@ -7,7 +7,6 @@ type ReviewPanelProps = {
   items: ReviewItem[];
   subtotal: number;
   totalCompareAt: number;
-  totalItems: number;
   savings: number;
   onChangeQuantity: (productId: string, variantId: string, qty: number) => void;
   onSave: () => void;
@@ -52,7 +51,7 @@ const ReviewItemRow = ({ item, onChangeQuantity }: ReviewItemRowProps) => {
           price={item.price * item.quantity}
           compareAtPrice={item.compareAtPrice ? item.compareAtPrice * item.quantity : undefined}
           variant="review"
-          suffix={item.category === 'plan' ? '/mo' : undefined}
+          suffix={item.priceSuffix}
         />
       </div>
     </div>
@@ -86,7 +85,10 @@ export const ReviewPanel = ({
   );
 
   return (
-    <aside className="rounded-xl bg-surface w-full xl:w-100 shrink-0 flex flex-col md:flex-row xl:flex-col">
+    <aside
+      className="rounded-xl bg-surface w-full xl:w-100 shrink-0 flex flex-col md:flex-row xl:flex-col"
+      aria-live="polite"
+    >
       <div className="flex-1">
         <header className="px-4 pt-4">
           <h3 className="hidden xl:block text-xs font-medium uppercase text-muted mb-6">Review</h3>
